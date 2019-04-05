@@ -1,14 +1,11 @@
 #!/bin/bash
-install_ruby()
-{
-    apt update -y
-    apt install ruby-full -y
-    apt-get install rubygems -y
-    gem install thor
-    gem install bundler-audit
-}
 
-main ()
+install_php()
+{
+    apt-get install php -y
+    wget https://get.symfony.com/cli/installer -O - | bash
+}
+main()
 {
     echo "======================================"
     echo "                                      "
@@ -23,15 +20,13 @@ main ()
         echo "This script must be run as root"
         exit 1
     fi
-    install_ruby
+    install_php
     echo "======================================"
     echo "   YOU HAVE COMPLETED INSTALLATION    "
     echo "======================================" 
-    echo " In order to audit a project's Gemfile.lock run the following:"
-    echo " $ bundle audit "
-    echo " ... output pf whatever vulnerabilities you have "
-    echo " "
-    echo " if you want, you can update the DB of vulners by running: "
-    echo " $ bundle audit update "
+    echo "Run the following where your composer.lock is"
+    echo " $ symfony security:check"
+    echo "If you don't know where your composer.lock is, run : "
+    echo " $ find / -name composer.lock "
 }
 main
